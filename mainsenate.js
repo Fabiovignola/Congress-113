@@ -79,8 +79,8 @@ function showDemocrats() {
         if (((members[j].party == checkboxI.value) && checkboxI.checked) && members[j].state == document.getElementById("menu").value) {
             filteredMembers.push(members[j]);
         }
-        if (((members[j].party == checkboxD.value) && checkboxD.checked) && document.getElementById("menu").value == "ALL") {
-            filteredMembers.push(members[j]);
+        if(((members[j].party == checkboxD.value) && checkboxD.checked) && document.getElementById("menu").value == "ALL") {
+        filteredMembers.push(members[j]);
         }
         if (((members[j].party == checkboxR.value) && checkboxR.checked) && document.getElementById("menu").value == "ALL") {
             filteredMembers.push(members[j]);
@@ -169,20 +169,6 @@ function final() {
     Select.appendChild(createOption);
 }
 ////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

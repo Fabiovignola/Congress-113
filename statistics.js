@@ -15,10 +15,12 @@ var statistics = {
 primerFunction();
 
 function primerFunction() {
+    var tab = document.getElementById("tabla1");
+    var tblB = document.createElement("tbody");
     var demoP = 0;
-    var parTotal = [];
     var repuP = 0;
     var indP = 0;
+    var parTotal = [];
     for (var i = 0; i < members.length; i++) {
         var part = members[i].party
         if (members[i].party == "D") {
@@ -30,16 +32,34 @@ function primerFunction() {
         if (members[i].party == "I") {
             indP = indP + 1
         }
+    var rowls = document.createElement("tr");
+    var colName = document.createElement("td");
+        
+    var colParty = document.createElement("td");
+    colParty.innerHTML = demoP;
+
+    var colState = document.createElement("td");
+    colState.innerHTML = repuP;
+
+    var colYears = document.createElement("td");
+    colYears.innerHTML = indP;
+
+    rowls.appendChild(colName);
+    rowls.appendChild(colParty);
+    rowls.appendChild(colState);
+
+    tblB.appendChild(rowls);
     }
 
     parTotal = demoP + repuP + indP;
     statistics.numDem = demoP;
     statistics.numRep = repuP;
     statistics.numInd = indP;
-    //    console.log(demoP);
+    //        console.log(demoP);
     //    console.log(repuP);
     //        console.log(indP);
     //    console.log(parTotal);
+    tab.appendChild(tblB);
 }
 
 primerFunctiondos();
@@ -94,17 +114,109 @@ function primerFunctiontres() {
     var todosVote = [];
     var tenporMas = [];
     var tenporMenos = [];
+
+    var copiaMembers = members.slice(0);
+    copiaMembers.sort(function (a, b) {
+        return b.votes_with_party_pct - a.votes_with_party_pct
+    });
+
+
+    var copiarInverse = members.slice(0);
+    copiarInverse.sort(function (a, b) {
+        return a.votes_with_party_pct - b.votes_with_party_pct
+    })
+
+    var diezPor = copiaMembers.length * 10 / 100;
+    var diezPor2 = copiarInverse.length * 10 / 100;
+    //    console.log(diezPor);
+
+    var redPor = Math.round(diezPor);
+    var redPor2 = Math.round(diezPor2);
+    //    console.log(redPor);
+
+    var top10 = copiaMembers.slice(0, redPor);
+    var top102 = copiarInverse.slice(0, redPor2);
+    //    console.log(top10);
+    //    console.log(top102);
+
+
+    var ultimo = top10[top10.length - 1];
+    var ultimo2 = top102[top102.length - 1];
+    //    console.log(ultimo);
+
     for (var i = 0; i < members.length; i++) {
-        var vote = members[i].votes_with_party_pct
-        todosVote.push(vote)
-        var copiaMembers = todosVote.slice(0);
-        copiaMembers.sort(function (a, b) {
-            return b - a
-        });
-//        if ();
+        if ((ultimo.votes_with_party_pct == members[i].votes_with_party_pct) && (ultimo.first_name !== members[i].first_name)) {
+            top10.push(members[i]);
+        }
     }
-    console.log(copiaMembers);
+    for (var i = 0; i < members.length; i++) {
+        if ((ultimo2.votes_with_party_pct == members[i].votes_with_party_pct) && (ultimo2.first_name !== members[i].first_name)) {
+            top102.push(members[i]);
+        }
+    }
+    //    console.log(top10);
+    //    console.log(top102);
+    statistics.memfVote = top10;
+    statistics.memfnVote = top102;
+    //    console.log(copiaMembers);
+    //    console.log(copiarInverse);
 }
+
+primerFunctioncuatro();
+
+function primerFunctioncuatro() {
+    var todosVote = [];
+    var tenporMas = [];
+    var tenporMenos = [];
+
+    var copiaMembers = members.slice(0);
+    copiaMembers.sort(function (a, b) {
+        return b.missed_votes_pct - a.missed_votes_pct
+    });
+
+
+    var copiarInverse = members.slice(0);
+    copiarInverse.sort(function (a, b) {
+        return a.missed_votes_pct - b.missed_votes_pct
+    })
+
+    var diezPor = copiaMembers.length * 10 / 100;
+    var diezPor2 = copiarInverse.length * 10 / 100;
+    //    console.log(diezPor);
+
+    var redPor = Math.round(diezPor);
+    var redPor2 = Math.round(diezPor2);
+    //    console.log(redPor);
+
+    var top102 = copiaMembers.slice(0, redPor);
+    var top1022 = copiarInverse.slice(0, redPor2);
+    console.log(top102);
+    console.log(top1022);
+
+
+    var ultimo = top102[top102.length - 1];
+    var ultimo2 = top1022[top1022.length - 1];
+    //    console.log(ultimo);
+
+    for (var i = 0; i < members.length; i++) {
+        if ((ultimo.missed_votes_pct == members[i].missed_votes_pct) && (ultimo.first_name !== members[i].first_name)) {
+            top102.push(members[i]);
+        }
+    }
+    for (var i = 0; i < members.length; i++) {
+        if ((ultimo2.missed_votes_pct == members[i].missed_votes_pct) && (ultimo2.first_name !== members[i].first_name)) {
+            top1022.push(members[i]);
+        }
+    }
+    console.log(top102);
+    console.log(top1022);
+    statistics.memlosemayorVote = top102;
+    statistics.memlosemenosVote = top1022;
+    //    console.log(copiaMembers);
+    //    console.log(copiarInverse);
+}
+
+
 
 
 //var statistics = {

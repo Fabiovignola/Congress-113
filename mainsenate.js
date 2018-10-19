@@ -5,8 +5,8 @@ tablas();
 
 function tablas() {
     var namefull;
-    var tab = document.getElementById("tabla1");
     var tblB = document.createElement("tbody");
+    var tab = document.getElementById("tabla1");
 
 
     for (var i = 0; i < members.length; i++) {

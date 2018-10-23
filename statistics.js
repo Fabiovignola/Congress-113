@@ -1,5 +1,7 @@
-var members = data.results[0].members;
-//console.log(members);
+var data;
+var members;
+var copiaMembers;
+
 var statistics = {
     numDem: 0,
     numRep: 0,
@@ -12,7 +14,66 @@ var statistics = {
     memlosemenosVote: 0,
 }
 
-primerFunction();
+llamarfunciones2();
+function llamarfunciones2() {
+    if ((document.getElementById("house2") != null)) {
+        filtersMode()
+    }
+    if ((document.getElementById("senate2") != null)) {
+        filtersMode2()
+    }
+}
+
+function filtersMode() {
+    fetch("https://api.propublica.org/congress/v1/113/house/members.json", {
+        method: "GET",
+        headers: {
+            'X-API-Key': 'oH9nQCYFm8g9WZmRmlBFWEwzhvHvkwDGDkpChf9h'
+        }
+    }).then(function (response) {
+        if (response.ok) {
+            console.log(2);
+
+            return response.json();
+        }
+
+    }).then(function (json) {
+        data = json;
+        members = data.results[0].members;
+        copiaMembers = members.slice(0);
+        primerFunction();
+        primerFunctiondos();
+        llamarfunciones();
+    }).catch(function (error) {
+        console.log("Request failed:" + error.message);
+    });
+}
+
+function filtersMode2() {
+    fetch("https://api.propublica.org/congress/v1/113/senate/members.json", {
+        method: "GET",
+        headers: {
+            'X-API-Key': 'oH9nQCYFm8g9WZmRmlBFWEwzhvHvkwDGDkpChf9h'
+        }
+    }).then(function (response) {
+        if (response.ok) {
+            console.log(2);
+
+            return response.json();
+        }
+
+    }).then(function (json) {
+        data = json;
+        members = data.results[0].members;
+        copiaMembers = members.slice(0);
+        primerFunction();
+        primerFunctiondos();
+        llamarfunciones();
+
+    }).catch(function (error) {
+        console.log("Request failed:" + error.message);
+    });
+}
 
 function primerFunction() {
     var demoP = 0;
@@ -45,8 +106,6 @@ function primerFunction() {
     var rowls = document.createElement("td");
     colParty.innerHTML = statistics.numInd;
 }
-
-primerFunctiondos();
 
 function primerFunctiondos() {
     var demPorcen = [];
@@ -91,14 +150,13 @@ function primerFunctiondos() {
     colParty.innerHTML = statistics.compRep;
 }
 
-
 function primerFunctionmasvote() {
     var todosVote = [];
     var tenporMas = [];
     var tenporMenos = [];
     var tab = document.getElementById("tabla4");
     var tblB = document.createElement("tbody");
-    var copiaMembers = members.slice(0);
+    copiaMembers = members.slice(0);
     copiaMembers.sort(function (a, b) {
         return b.votes_with_party_pct - a.votes_with_party_pct
     });
@@ -107,16 +165,19 @@ function primerFunctionmasvote() {
     var top10 = copiaMembers.slice(0, redPor);
     var ultimo = top10[top10.length - 1];
     for (var i = 0; i < members.length; i++) {
-        if ((ultimo.votes_with_party_pct == members[i].votes_with_party_pct) && (ultimo.first_name !== members[i].first_name)) {
+        if ((ultimo.votes_with_party_pct == members[i].votes_with_party_pct) && (top10.includes(members[i]) == false)) {
             top10.push(members[i]);
         }
     }
     for (var j = 0; j < top10.length; j++) {
         var rowls = document.createElement("tr");
         var colParty1 = document.createElement("td");
+
         colParty1.innerHTML = top10[j].first_name + " " + top10[j].last_name;
+
         var colParty2 = document.createElement("td");
         colParty2.innerHTML = top10[j].party;
+
         var colParty3 = document.createElement("td");
         colParty3.innerHTML = top10[j].votes_with_party_pct;
         rowls.appendChild(colParty1);
@@ -127,7 +188,6 @@ function primerFunctionmasvote() {
     statistics.memfVote = top10;
     tab.appendChild(tblB);
 }
-
 
 function primerFunctionmenosvote() {
     var todosVote = [];
@@ -144,7 +204,7 @@ function primerFunctionmenosvote() {
     var top102 = copiarInverse.slice(0, redPor2);
     var ultimo2 = top102[top102.length - 1];
     for (var i = 0; i < members.length; i++) {
-        if ((ultimo2.votes_with_party_pct == members[i].votes_with_party_pct) && (ultimo2.first_name !== members[i].first_name)) {
+        if ((ultimo2.votes_with_party_pct == members[i].votes_with_party_pct) && (top102.includes(members[i]) == false)) {
             top102.push(members[i]);
         }
     }
@@ -165,7 +225,6 @@ function primerFunctionmenosvote() {
     tab.appendChild(tblB);
 }
 
-
 function primerFunctionlmiss() {
     var todosVote = [];
     var tenporMas = [];
@@ -181,10 +240,11 @@ function primerFunctionlmiss() {
     var top1022 = copiarInverse.slice(0, redPor2);
     var ultimo2 = top1022[top1022.length - 1];
     for (var i = 0; i < members.length; i++) {
-        if ((ultimo2.missed_votes_pct == members[i].missed_votes_pct) && (ultimo2.first_name !== members[i].first_name)) {
+        if ((ultimo2.missed_votes_pct == members[i].missed_votes_pct) && (top1022.includes(members[i]) == false)) {
             top1022.push(members[i]);
         }
     }
+    console.log(top1022)
     for (var j = 0; j < top1022.length; j++) {
         var rowls = document.createElement("tr");
         var colParty1 = document.createElement("td");
@@ -202,7 +262,6 @@ function primerFunctionlmiss() {
     statistics.memlosemenosVote = top1022;
 }
 
-
 function primerFunctionmmiss() {
     var todosVote = [];
     var tenporMas = [];
@@ -218,10 +277,11 @@ function primerFunctionmmiss() {
     var top102 = copiaMembers.slice(0, redPor);
     var ultimo = top102[top102.length - 1];
     for (var i = 0; i < members.length; i++) {
-        if ((ultimo.missed_votes_pct == members[i].missed_votes_pct) && (ultimo.first_name !== members[i].first_name)) {
+        if ((ultimo.missed_votes_pct == members[i].missed_votes_pct) && (top102.includes(members[i]) == false)) {
             top102.push(members[i]);
         }
     }
+    console.log(top102)
     for (var j = 0; j < top102.length; j++) {
         var rowls = document.createElement("tr");
         var colParty1 = document.createElement("td");
@@ -239,26 +299,13 @@ function primerFunctionmmiss() {
     statistics.memlosemayorVote = top102;
 }
 
-llamarfunciones();
-
 function llamarfunciones() {
-    if ((document.getElementById("tabla5") && (document.getElementById("tabla6")) != null)) {
+    if ((document.getElementById("tabla5") != null) && (document.getElementById("tabla6") != null)) {
         primerFunctionmmiss()
         primerFunctionlmiss()
     }
-    if ((document.getElementById("tabla3")) && ((document.getElementById("tabla4")) != null)) {
+    if ((document.getElementById("tabla3") !=  null) && ((document.getElementById("tabla4")) != null)) {
         primerFunctionmasvote()
         primerFunctionmenosvote()
     }
 }
-//var statistics = {
-//    numDem: demoP,
-//    numRep: repuP,
-//    numInd: indP,
-//    compDem: 0,
-//    compRep: 0,
-//    memfVote: 0,
-//    memfnVote: 0,
-//    memlosemayorVote: 0,
-//    memlosemenosVote: 0,
-//}

@@ -30,19 +30,14 @@ var app = new Vue({
                 }
             }).then(function (response) {
                 if (response.ok) {
-                    //                    console.log(2);
 
                     return response.json();
                 }
 
-            }).then(function (json) {
-               
+            }).then(function (json) {  
                 app.members = json.results[0].members;
                 app.membersOriginal = json.results[0].members;
-                //                tablas();
-                //                showDemocrats();
                 app.createSelect();
-                //                final();
             }).catch(function (error) {
                 console.log("Request failed:" + error.message);
             });
@@ -63,11 +58,6 @@ var app = new Vue({
             }).then(function (json) {
                 data = json;
                 app.members = data.results[0].members;
-                console.log(app.members)
-                //                tablas();
-                //                showDemocrats();
-                //                createSelect();
-                //                final();
             }).catch(function (error) {
                 console.log("Request failed:" + error.message);
             });

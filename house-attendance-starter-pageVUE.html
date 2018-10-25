@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -24,13 +25,13 @@
                     </ul>
                 <li class="active"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Attendance <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="house-attendance-starter-page.html">House</a></li>
-                        <li><a href="senate-attendance-starter-page.html">Senate</a></li>
+                        <li><a href="house-attendance-starter-pageVUE.html">House</a></li>
+                        <li><a href="senate-attendance-starter-pageVUE.html">Senate</a></li>
                     </ul>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Party Loyalte <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="house-party-loyalty-starter-page.html">House</a></li>
-                        <li><a href="senate-party-loyalty-starter-page.html">Senate</a></li>
+                        <li><a href="house-party-loyalty-starter-pageVUE.html">House</a></li>
+                        <li><a href="senate-party-loyalty-starter-pageVUE.html">Senate</a></li>
                     </ul>
                 </li>
             </ul>
@@ -43,14 +44,14 @@
         </div>
     </header>
     <!--Table container-->
-    <div>
+    <div id="app">
         <h2>Attendance</h2>
         <p>The Constitution specifies that a majority of members constitutes a quorum to do business in each house. Representatives and senators rarely force the presence of a quorum by demanding quorum calls; thus, in most cases, debates continue even if a majority is not present.</p>
 
         <p>The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
 
-        <h2>Senate at a glance</h2>
-        <div id="senate2" class="container">
+        <h2>House at a glance</h2>
+        <div id="house2" class="container">
             <table id="tabla2" class="table table-striped">
                 <thead>
                     <tr>
@@ -62,21 +63,19 @@
                 <tbody>
                     <tr>
                         <td>Democrats</td>
-                        <td id="numDem"></td>
-                        <td id="compDem"></td>
-                        <td></td>
+                        <td>{{statistics.numDem}}</td>
+                        <td>{{statistics.compDem}}</td>
+
                     </tr>
                     <tr>
                         <td>Republicans</td>
-                        <td id="numRep"></td>
-                        <td id="compRep"></td>
-                        <td></td>
+                        <td>{{statistics.numRep}}</td>
+                        <td>{{statistics.compRep}}</td>
+
                     </tr>
                     <tr>
                         <td>Independets</td>
-                        <td id="numInd"></td>
-                        <td id="compRep"></td>
-                        <td></td>
+                        <td>{{statistics.numInd}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -86,9 +85,14 @@
             <table id="tabla5" class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Number of Missed Votes</th>
-                        <th>% Missed</th>
+                        <td>Name</td>
+                        <td>Number of Missed Votes</td>
+                        <td>% Missed</td>
+                    </tr>
+                    <tr v-for="item in statistics.memlosemenosVote">
+                        <td>{{item.first_name}} {{item.last_name}}</td>
+                        <td>{{item.missed_votes}}</td>
+                        <td>{{item.missed_votes_pct}}</td>
                     </tr>
                 </thead>
             </table>
@@ -99,15 +103,21 @@
             <table id="tabla6" class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Number of Missed Votes</th>
-                        <th>% Missed</th>
+                        <td>Name</td>
+                        <td>Number of Missed Votes</td>
+                        <td>% Missed</td>
+                    </tr>
+                    <tr v-for="item in statistics.memlosemayorVote">
+                        <td>{{item.first_name}} {{item.last_name}}</td>
+                        <td>{{item.missed_votes}}</td>
+                        <td>{{item.missed_votes_pct}}</td>
                     </tr>
                 </thead>
             </table>
         </div>
     </div>
-    <script src="statistics.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="statisticsVUE.js"></script>
 </body>
 
 </html>

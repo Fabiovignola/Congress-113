@@ -62,7 +62,6 @@ fetch("https://api.propublica.org/congress/v1/113/senate/members.json", {
     console.log("Request failed:" + error.message);
 });
 }
-//tablas();
 function tablas() {
     var namefull;
     var tblB = document.createElement("tbody");
@@ -104,7 +103,6 @@ function tablas() {
     }
     tab.appendChild(tblB);
 }
-//showDemocrats();
 function showDemocrats() {
     var filteredMembers = [];
     var namefull;
@@ -170,7 +168,6 @@ function showDemocrats() {
     }
     tab.appendChild(tblB);
 }
-//createSelect();
 function createSelect() {
     var statesp = [];
     statesp = [];
@@ -184,7 +181,6 @@ function createSelect() {
         return array.indexOf(item) === index;
     })
 }
-//final();
 function final() {
     var Select = document.getElementById("menu");
     for (var i = 0; i < uniqs.length; i++) {

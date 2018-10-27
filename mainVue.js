@@ -3,26 +3,26 @@ var app = new Vue({
     data: {
         members: [],
         membersOriginal: [],
-        statesp : [],
-        uniqs :[]
+        statesp: [],
+        uniqs: []
     },
     created: function () {
-        this.llamarfunciones();
+        document.body.className = "loading";
+        this.callAjax();
         this.createSelect();
     },
     methods: {
-        
-        llamarfunciones: function () {
+        callAjax: function () {
             var tab = document.getElementById("house")
             var tab2 = document.getElementById("senate")
             if ((document.getElementById("house") && (document.getElementById("house")) != null)) {
-                this.filtersMode()
+                this.callHouse()
             }
             if ((document.getElementById("senate")) && ((document.getElementById("senate")) != null)) {
-                this.filtersMode2()
+                this.callSenate()
             }
         },
-        filtersMode: function () {
+        callHouse: function () {
             fetch("https://api.propublica.org/congress/v1/113/house/members.json", {
                 method: "GET",
                 headers: {
@@ -30,19 +30,18 @@ var app = new Vue({
                 }
             }).then(function (response) {
                 if (response.ok) {
-
                     return response.json();
                 }
-
-            }).then(function (json) {  
+            }).then(function (json) {
                 app.members = json.results[0].members;
                 app.membersOriginal = json.results[0].members;
                 app.createSelect();
+                document.body.className = "";
             }).catch(function (error) {
                 console.log("Request failed:" + error.message);
             });
         },
-        filtersMode2: function () {
+        callSenate: function () {
             fetch("https://api.propublica.org/congress/v1/113/senate/members.json", {
                 method: "GET",
                 headers: {
@@ -51,28 +50,24 @@ var app = new Vue({
             }).then(function (response) {
                 if (response.ok) {
                     console.log(2);
-
                     return response.json();
                 }
-
             }).then(function (json) {
-                data = json;
-                app.members = data.results[0].members;
+                app.members = json.results[0].members;
+                app.membersOriginal = json.results[0].members;
+                app.createSelect();
+                document.body.className = "";
             }).catch(function (error) {
                 console.log("Request failed:" + error.message);
             });
-
-
         },
-        showDemocrats: function () {
+        filterCongress: function () {
             this.members = this.membersOriginal;
             var filteredMembers = [];
-            var namefull;
             filteredMembers = [];
             var checkboxD = document.getElementById("Democrat");
             var checkboxR = document.getElementById("Republican");
             var checkboxI = document.getElementById("Independent");
-           
             for (var j = 0; j < this.members.length; j++) {
                 if (((this.members[j].party == checkboxD.value) && checkboxD.checked) && this.members[j].state == document.getElementById("menu").value) {
                     filteredMembers.push(this.members[j]);
@@ -94,7 +89,6 @@ var app = new Vue({
                 }
             }
             this.members = filteredMembers;
-            console.log(this.members)
         },
         createSelect: function () {
             for (var i = 0; i < this.members.length; i++) {
@@ -105,7 +99,6 @@ var app = new Vue({
                 return array.indexOf(item) === index;
             })
         },
-                filter: function () {  
-                }
+        filter: function () {}
     }
 });

@@ -15,20 +15,21 @@ var app = new Vue({
         },
     },
     created: function () {
-        this.llamarfunciones2();
+        document.body.className = "loading";
+        this.callAjax();
 
     },
     methods: {
 
-        llamarfunciones2: function () {
+        callAjax: function () {
             if ((document.getElementById("house2") != null)) {
-                this.filtersMode()
+                this.callHouse()
             }
             if ((document.getElementById("senate2") != null)) {
-                this.filtersMode2()
+                this.callSenate()
             }
         },
-        filtersMode: function () {
+        callHouse: function () {
             fetch("https://api.propublica.org/congress/v1/113/house/members.json", {
                 method: "GET",
                 headers: {
@@ -49,12 +50,13 @@ var app = new Vue({
                 app.primerFunctionlmiss();
                 app.primerFunctionmmiss();
                 app.llamarfunciones();
+                document.body.className = "";
 
             }).catch(function (error) {
                 console.log("Request failed:" + error.message);
             });
         },
-        filtersMode2: function () {
+        callSenate: function () {
             fetch("https://api.propublica.org/congress/v1/113/senate/members.json", {
                 method: "GET",
                 headers: {
@@ -74,7 +76,8 @@ var app = new Vue({
                 app.primerFunctionmenosvote();
                 app.primerFunctionlmiss();
                 app.primerFunctionmmiss();
-                //        app.llamarfunciones();
+                app.llamarfunciones();
+                document.body.className = "";
 
             }).catch(function (error) {
                 console.log("Request failed:" + error.message);
@@ -163,7 +166,7 @@ var app = new Vue({
             var todosVote = [];
             var tenporMas = [];
             var tenporMenos = [];
-           var copiarInverse = this.members.slice(0);
+            var copiarInverse = this.members.slice(0);
             copiarInverse.sort(function (a, b) {
                 return a.votes_with_party_pct - b.votes_with_party_pct
             })

@@ -11,7 +11,7 @@
 
 <body>
     <div id="page">
-        <img class="logo" src="usa.gif" alt="kids playing">
+        <img class="logo" src="usa2.png" alt="kids playing">
         <div class="correo">
             <img src="Info_Light.png">
             <a href="mailto:info@tgif.net">info@tgif.net</a>
@@ -50,77 +50,81 @@
         </header>
         <!--Table container-->
         <div id="app">
-            
-            <h2>Attendance</h2>
-            <p>The Constitution specifies that a majority of members constitutes a quorum to do business in each house. Representatives and senators rarely force the presence of a quorum by demanding quorum calls; thus, in most cases, debates continue even if a majority is not present.</p>
+            <div class="grid">
+                <div class="grid1">
+                    <h2>Attendance</h2>
+                    <p>The Constitution specifies that a majority of members constitutes a quorum to do business in each house. Representatives and senators rarely force the presence of a quorum by demanding quorum calls; thus, in most cases, debates continue even if a majority is not present.</p>
 
-            <p>The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
-
-            <h2>House at a glance</h2>
-            <div id="house2" class="container">
-                <table id="tabla2" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Party</th>
-                            <th>Number of Reps</th>
-                            <th>% Voted with Prty</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Democrats</td>
-                            <td>{{statistics.numDem}}</td>
-                            <td>{{statistics.compDem}}</td>
-                        </tr>
-                        <tr>
-                            <td>Republicans</td>
-                            <td>{{statistics.numRep}}</td>
-                            <td>{{statistics.compRep}}</td>
-                        </tr>
-                        <tr>
-                            <td>Independets</td>
-                            <td>{{statistics.numInd}}</td>
-                            <td>0</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <p>The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
+                </div>
+                <div class="grid2">
+                    <h2>House at a glance</h2>
+                    <div id="house2">
+                        <table id="tabla2" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Party</th>
+                                    <th>Number of Reps</th>
+                                    <th>% Voted with Prty</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Democrats</td>
+                                    <td>{{statistics.numDem}}</td>
+                                    <td>{{statistics.compDem}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Republicans</td>
+                                    <td>{{statistics.numRep}}</td>
+                                    <td>{{statistics.compRep}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Independets</td>
+                                    <td>{{statistics.numInd}}</td>
+                                    <td>0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            
-            <h2>Least Engaged (Bottom 10% Attendance)</h2>
-            <div id="sa" class="container">
-                <table id="tabla5" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <td>Name</td>
-                            <td>Number of Missed Votes</td>
-                            <td>% Missed</td>
-                        </tr>
-                        <tr v-for="item in statistics.memlosemenosVote">
-                            <td>{{item.first_name}} {{item.last_name}}</td>
-                            <td>{{item.missed_votes}}</td>
-                            <td>{{item.missed_votes_pct}}</td>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-
-            <h2>Most Engaged (Top 10% Attendance)</h2>
-            <div id="sa2" class="container">
-                <table id="tabla6" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <td>Name</td>
-                            <td>Number of Missed Votes</td>
-                            <td>% Missed</td>
-                        </tr>
-                        <tr v-for="item in statistics.memlosemayorVote">
-                            <td>{{item.first_name}} {{item.last_name}}</td>
-                            <td>{{item.missed_votes}}</td>
-                            <td>{{item.missed_votes_pct}}</td>
-                        </tr>
-                    </thead>
-                </table>
-                <div class="loading-bar"></div>
+            <div class="grid">
+                <div class="grid1">
+                    <h2>Least Engaged (Bottom 10% Attendance)</h2>
+                    <table id="tabla5" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Number of Missed Votes</td>
+                                <td>% Missed</td>
+                            </tr>
+                            <tr v-for="item in statistics.memlosemenosVote">
+                                <td>{{item.first_name}} {{item.last_name}}</td>
+                                <td>{{item.missed_votes}}</td>
+                                <td>{{item.missed_votes_pct}}</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="grid2">
+                    <h2>Most Engaged (Top 10% Attendance)</h2>
+                    <table id="tabla6" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Number of Missed Votes</td>
+                                <td>% Missed</td>
+                            </tr>
+                            <tr v-for="item in statistics.memlosemayorVote">
+                                <td>{{item.first_name}} {{item.last_name}}</td>
+                                <td>{{item.missed_votes}}</td>
+                                <td>{{item.missed_votes_pct}}</td>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="loading-bar"></div>
+                </div>
             </div>
         </div>
         <div class="final">

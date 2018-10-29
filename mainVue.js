@@ -97,6 +97,5 @@ var app = new Vue({
                 return array.indexOf(item) === index;
             })
         },
-        filter: function () {}
     }
 });

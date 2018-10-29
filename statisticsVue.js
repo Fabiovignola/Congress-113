@@ -23,7 +23,6 @@ var app = new Vue({
 
     },
     methods: {
-
         callAjax: function () {
             if ((document.getElementById("house2") != null)) {
                 this.callHouse()
@@ -48,10 +47,10 @@ var app = new Vue({
                 app.copiaMembers = app.members.slice(0);
                 app.numberCongress();
                 app.porcentCongress();
-                app.primerFunctionmasvote();
-                app.primerFunctionmenosvote();
-                app.primerFunctionlmiss();
-                app.primerFunctionmmiss();
+                app.mostLoyal();
+                app.leastLoyal();
+                app.leastEngaged();
+                app.mostEngaged();
                 app.callFunction();
                 document.body.className = "";
 
@@ -75,10 +74,10 @@ var app = new Vue({
                 app.copiaMembers = app.members.slice(0);
                 app.numberCongress();
                 app.porcentCongress();
-                app.primerFunctionmasvote();
-                app.primerFunctionmenosvote();
-                app.primerFunctionlmiss();
-                app.primerFunctionmmiss();
+                app.mostLoyal();
+                app.leastLoyal();
+                app.leastEngaged();
+                app.mostEngaged();
                 app.callFunction();
                 document.body.className = "";
 
@@ -144,7 +143,7 @@ var app = new Vue({
             this.statistics.compRep = e;
 
         },
-        primerFunctionmasvote: function () {
+        mostLoyal: function () {
             var copiaMembers = this.members.slice(0);
             copiaMembers.sort(function (a, b) {
                 return b.votes_with_party_pct - a.votes_with_party_pct
@@ -160,7 +159,7 @@ var app = new Vue({
             }
             this.statistics.memfVote = top10;
         },
-        primerFunctionmenosvote: function () {
+        leastLoyal: function () {
             var copiarInverse = this.members.slice(0);
             copiarInverse.sort(function (a, b) {
                 return a.votes_with_party_pct - b.votes_with_party_pct
@@ -176,10 +175,7 @@ var app = new Vue({
             }
             this.statistics.memfnVote = top102;
         },
-        primerFunctionlmiss: function () {
-            var todosVote = [];
-            var tenporMas = [];
-            var tenporMenos = [];
+        leastEngaged: function () {
             var copiarInverse = this.members.slice(0);
             copiarInverse.sort(function (a, b) {
                 return a.missed_votes_pct - b.missed_votes_pct
@@ -195,10 +191,7 @@ var app = new Vue({
             }
             this.statistics.memlosemenosVote = top1022;
         },
-        primerFunctionmmiss: function () {
-            var todosVote = [];
-            var tenporMas = [];
-            var tenporMenos = [];
+        mostEngaged: function () {
             var copiaMembers = this.members.slice(0);
             copiaMembers.sort(function (a, b) {
                 return b.missed_votes_pct - a.missed_votes_pct
@@ -216,35 +209,17 @@ var app = new Vue({
         },
         callFunction: function () {
             if ((document.getElementById("tabla5") != null) && (document.getElementById("tabla6") != null)) {
-                this.primerFunctionmmiss()
-                this.primerFunctionlmiss()
+                this.mostEngaged()
+                this.leastEngaged()
             }
             if ((document.getElementById("tabla3") != null) && ((document.getElementById("tabla4")) != null)) {
-                this.primerFunctionmasvote()
-                this.primerFunctionmenosvote()
+                this.mostLoyal()
+                this.leastLoyal()
             }
         },
-        atribute: function () {
-            var namefull;
-            for (var i = 0; i < this.members.length; i++) {
-                var url = this.members[i].url;
-                var sta = this.members[i].state;
-                if (this.members[i].middle_name == null) {
-
-                    namefull = this.members[i].first_name + " " + this.members[i].last_name;
-
-                } else
-
-                if (this.members[i].middle_name != null) {
-
-                    namefull = this.members[i].first_name + " " + this.members[i].middle_name + " " + this.members[i].last_name;
-                }
-                var link = document.createElement("a");
-                link.setAttribute("href", url);
-                link.textContent = namefull;
-                colName.appendChild(link);
-            }
-    },
-    filter: function () {}
-}
+        toggleSeen: function () {
+            app.seen = !app.seen;
+            app.button.text = app.seen ? 'Hide' : 'Show';
+        },
+    }
 });

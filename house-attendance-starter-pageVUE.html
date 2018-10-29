@@ -19,10 +19,10 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="https://www.whitehouse.gov/the_press_office/TransparencyandOpenGovernment">TGIF</a>
+                    <a class="navbar-brand" href="https://www.congress.gov">TGIF</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="dropdown"><a href="home-starter-page.html">Home</a></li>
+                    <li class="dropdown"><a href="index.html">Home</a></li>
                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Congress 113 <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="house-starter-pageVUE.html">House</a></li>
@@ -104,12 +104,14 @@
                                 <td>Number of Missed Votes</td>
                                 <td>% Missed</td>
                             </tr>
+                        </thead>
+                        <tbody>
                             <tr v-for="item in statistics.memlosemenosVote">
                                 <td>{{item.first_name}} {{item.last_name}}</td>
                                 <td>{{item.missed_votes}}</td>
                                 <td>{{item.missed_votes_pct}}</td>
                             </tr>
-                        </thead>
+                        </tbody>
                     </table>
                 </div>
                 <div class="grid2">
@@ -121,12 +123,14 @@
                                 <td>Number of Missed Votes</td>
                                 <td>% Missed</td>
                             </tr>
+                        </thead>
+                        <tbody>
                             <tr v-for="item in statistics.memlosemayorVote">
                                 <td>{{item.first_name}} {{item.last_name}}</td>
                                 <td>{{item.missed_votes}}</td>
                                 <td>{{item.missed_votes_pct}}</td>
                             </tr>
-                        </thead>
+                        </tbody>
                     </table>
                     <div class="loading-bar"></div>
                 </div>

@@ -9,7 +9,6 @@ var app = new Vue({
     created: function () {
         document.body.className = "loading";
         this.callAjax();
-        this.createSelect();
     },
     methods: {
         callAjax: function () {

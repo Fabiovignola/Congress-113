@@ -145,9 +145,6 @@ var app = new Vue({
 
         },
         primerFunctionmasvote: function () {
-            var todosVote = [];
-            var tenporMas = [];
-            var tenporMenos = [];
             var copiaMembers = this.members.slice(0);
             copiaMembers.sort(function (a, b) {
                 return b.votes_with_party_pct - a.votes_with_party_pct
@@ -164,9 +161,6 @@ var app = new Vue({
             this.statistics.memfVote = top10;
         },
         primerFunctionmenosvote: function () {
-            var todosVote = [];
-            var tenporMas = [];
-            var tenporMenos = [];
             var copiarInverse = this.members.slice(0);
             copiarInverse.sort(function (a, b) {
                 return a.votes_with_party_pct - b.votes_with_party_pct
@@ -230,6 +224,27 @@ var app = new Vue({
                 this.primerFunctionmenosvote()
             }
         },
-        filter: function () {}
-    }
+        atribute: function () {
+            var namefull;
+            for (var i = 0; i < this.members.length; i++) {
+                var url = this.members[i].url;
+                var sta = this.members[i].state;
+                if (this.members[i].middle_name == null) {
+
+                    namefull = this.members[i].first_name + " " + this.members[i].last_name;
+
+                } else
+
+                if (this.members[i].middle_name != null) {
+
+                    namefull = this.members[i].first_name + " " + this.members[i].middle_name + " " + this.members[i].last_name;
+                }
+                var link = document.createElement("a");
+                link.setAttribute("href", url);
+                link.textContent = namefull;
+                colName.appendChild(link);
+            }
+    },
+    filter: function () {}
+}
 });

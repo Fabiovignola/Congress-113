@@ -67,3 +67,12 @@ body.loading .loading-bar {
 .grid2 {
     grid-column: 2;
 }
+
+.linki {
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.collapsing {
+    background-color: gray;
+}

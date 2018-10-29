@@ -13,6 +13,9 @@ var app = new Vue({
             memlosemayorVote: 0,
             memlosemenosVote: 0,
         },
+        parTotal: [],
+        porcTotal: [],
+        fin: [],
     },
     created: function () {
         document.body.className = "loading";
@@ -43,13 +46,13 @@ var app = new Vue({
             }).then(function (json) {
                 app.members = json.results[0].members;
                 app.copiaMembers = app.members.slice(0);
-                app.primerFunction();
-                app.primerFunctiondos();
+                app.numberCongress();
+                app.porcentCongress();
                 app.primerFunctionmasvote();
                 app.primerFunctionmenosvote();
                 app.primerFunctionlmiss();
                 app.primerFunctionmmiss();
-                app.llamarfunciones();
+                app.callFunction();
                 document.body.className = "";
 
             }).catch(function (error) {
@@ -70,24 +73,23 @@ var app = new Vue({
             }).then(function (json) {
                 app.members = json.results[0].members;
                 app.copiaMembers = app.members.slice(0);
-                app.primerFunction();
-                app.primerFunctiondos();
+                app.numberCongress();
+                app.porcentCongress();
                 app.primerFunctionmasvote();
                 app.primerFunctionmenosvote();
                 app.primerFunctionlmiss();
                 app.primerFunctionmmiss();
-                app.llamarfunciones();
+                app.callFunction();
                 document.body.className = "";
 
             }).catch(function (error) {
                 console.log("Request failed:" + error.message);
             });
         },
-        primerFunction: function () {
+        numberCongress: function () {
             var demoP = 0;
             var repuP = 0;
             var indP = 0;
-            var parTotal = [];
             for (var i = 0; i < this.members.length; i++) {
                 var part = this.members[i].party
                 if (this.members[i].party == "D") {
@@ -100,16 +102,15 @@ var app = new Vue({
                     indP = indP + 1
                 }
             }
-            parTotal = demoP + repuP + indP;
+            this.parTotal = demoP + repuP + indP;
             this.statistics.numDem = demoP;
             this.statistics.numRep = repuP;
             this.statistics.numInd = indP;
         },
-        primerFunctiondos: function () {
+        porcentCongress: function () {
             var demPorcen = [];
             var repPorcen = [];
             var indPorcen = [];
-            var porcTotal = [];
             for (var i = 0; i < this.members.length; i++) {
                 var vote = this.members[i].votes_with_party_pct
                 if (this.members[i].votes_with_party_pct && this.members[i].party == "D") {
@@ -136,8 +137,9 @@ var app = new Vue({
             var d = porvDemo.toFixed(1);
             var porvRepu = sumRep / this.statistics.numRep;
             var e = porvRepu.toFixed(1);
-            var portotal = porvRepu + porvDemo;
-            var fin = portotal / 2;
+            this.portotal = porvRepu + porvDemo;
+            this.fin = this.portotal / 2;
+            this.fin = this.fin.toFixed(1);
             this.statistics.compDem = d;
             this.statistics.compRep = e;
 
@@ -153,7 +155,6 @@ var app = new Vue({
             var diezPor = copiaMembers.length * 10 / 100;
             var redPor = Math.round(diezPor);
             var top10 = copiaMembers.slice(0, redPor);
-            console.log(top10)
             var ultimo = top10[top10.length - 1];
             for (var i = 0; i < this.members.length; i++) {
                 if ((ultimo.votes_with_party_pct == this.members[i].votes_with_party_pct) && (top10.includes(this.members[i]) == false)) {
@@ -219,7 +220,7 @@ var app = new Vue({
             }
             this.statistics.memlosemayorVote = top102;
         },
-        llamarfunciones: function () {
+        callFunction: function () {
             if ((document.getElementById("tabla5") != null) && (document.getElementById("tabla6") != null)) {
                 this.primerFunctionmmiss()
                 this.primerFunctionlmiss()

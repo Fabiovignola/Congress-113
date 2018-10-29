@@ -49,7 +49,6 @@ var app = new Vue({
                 }
             }).then(function (response) {
                 if (response.ok) {
-                    console.log(2);
                     return response.json();
                 }
             }).then(function (json) {
